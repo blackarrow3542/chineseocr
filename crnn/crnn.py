@@ -10,7 +10,7 @@ from crnn.models import crnn as crnn
 from crnn import keys
 #from conf import crnnModelPath
 #from conf import GPU
-GPU=False
+GPU=True
 from collections import OrderedDict
 from config import ocrModel
 def crnnSource():

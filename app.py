@@ -34,7 +34,7 @@ class OCR:
 
     def POST(self):
         data = web.data()
-        data = json.loads(data)
+        data = json.loads(data.decode('utf-8'))
         imgString = data['imgString'].encode().split(b';base64,')[-1]
         imgString = base64.b64decode(imgString)
         jobid = uuid.uuid1().__str__()
@@ -54,24 +54,16 @@ class OCR:
                 LINE_MIN_SCORE=0.2,
                 TEXT_PROPOSALS_WIDTH=5,
                 MIN_NUM_PROPOSALS=0,
-                textmodel = 'opencv_dnn_detect'                                                     
+                textmodel = 'opencv_dnn_detect'
                 ),
                 leftAdjust=True,rightAdjust=True,alph=0.1)
-        
         timeTake = time.time()-timeTake
         res = map(lambda x:{'w':x['w'],'h':x['h'],'cx':x['cx'],'cy':x['cy'],'degree':x['degree'],'text':x['text']}, result)
         res = list(res)
-
         os.remove(path)
         return json.dumps({'res':res,'timeTake':round(timeTake,4)},ensure_ascii=False)
-
-
-
-
 urls = (u'/ocr',u'OCR',
        )
-
 if __name__ == "__main__":
-
       app = web.application(urls, globals())
       app.run()

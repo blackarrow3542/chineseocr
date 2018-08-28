@@ -8,5 +8,3 @@ pip install  h5py lmdb mahotas pandas,requests -i https://pypi.tuna.tsinghua.edu
 pip install web.py==0.40.dev0
 conda install pytorch=0.2.0 cuda80  torchvision -c soumith
 pushd detector/utils && sh make-for-cpu.sh && popd
-
-
